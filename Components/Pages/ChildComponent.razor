@@ -1,0 +1,18 @@
+@using System.Linq.Expressions
+
+@(ValueExpression.Compile()())
+
+@code {
+
+    [CascadingParameter]
+    protected ComponentBase Other { get; set; } = null!;
+
+    [Parameter]
+    public required int Value { get; set; }
+
+    [Parameter]
+    public EventCallback<int> ValueChanged { get; set; }
+
+    [Parameter]
+    public required Expression<Func<int>> ValueExpression { get; set; }
+}

@@ -1,0 +1,26 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+
+<h1>Demonstration of components inside an "if" rendering while the if is false.</h1>
+
+<button @onclick="() => Foo.Child = null">Clicking this will cause a crash in the console</button>
+
+<CascadingValue TValue="ComponentBase" Value="this">
+    <EditForm Model="Foo">
+        @if (Foo.Child != null)
+        {
+            Console.WriteLine($"Foo is not null");
+
+            <TestComponent Value="Foo.Child.Value"
+                           ValueChanged="value => Foo.Child.Value = value"
+                           ValueExpression="() => Foo.Child.Value" />
+        }
+    </EditForm>
+</CascadingValue>
+
+@code {
+    private Foo Foo { get; set; } = new() { Child = new() };
+}
